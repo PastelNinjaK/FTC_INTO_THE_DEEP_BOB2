@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 
 @Autonomous(name = "Ultrasonic Sensor Auto Left", group = "Robot")
-public class AutoOp2425(left) extends LinearOpMode {
+public class AutoOp2425_left_ extends LinearOpMode {
     private DcMotor leftDrive;
     private DcMotor rightDrive;
     private DcMotor armMotor;
