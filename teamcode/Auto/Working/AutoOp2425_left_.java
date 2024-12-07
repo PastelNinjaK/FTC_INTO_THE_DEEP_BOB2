@@ -67,17 +67,17 @@ public class AutoOp2425_left_ extends LinearOpMode {
 
         if (opModeIsActive()) {
             // Fill this up with the program
-            program(-1.0,-1.0,timePerTile,ARM_SCORE_SPECIMEN,WRIST_FOLDED_IN,INTAKE_OFF);//Robot turns on
-            program(-1.0,1.0,timePer90,ARM_SCORE_SPECIMEN,WRIST_FOLDED_IN,INTAKE_OFF);//Robot rotates
-            program(-1.0,-1.0,timePerTile,ARM_SCORE_SPECIMEN,WRIST_FOLDED_IN,INTAKE_OFF);//Robot goes to high rung
-            program(1.0,-1.0,timePer90,ARM_SCORE_SPECIMEN,WRIST_FOLDED_IN,INTAKE_OFF);
+            program(1.0,1.0,timePerTile * 0.8,ARM_SCORE_SPECIMEN,WRIST_FOLDED_IN,INTAKE_OFF);//Robot turns on
+            program(1.0,-1.0,timePer90,ARM_SCORE_SPECIMEN,WRIST_FOLDED_IN,INTAKE_OFF);//Robot rotates
+            program(1.0,1.0,timePerTile * 1.5,ARM_SCORE_SPECIMEN,WRIST_FOLDED_IN,INTAKE_OFF);//Robot goes to high rung
+            program(-1.0,1.0,timePer90,ARM_SCORE_SPECIMEN,WRIST_FOLDED_IN,INTAKE_OFF);
             program(0,0,timePerTile,ARM_SCORE_SPECIMEN,WRIST_FOLDED_IN,INTAKE_DEPOSIT);//Robot stops to score
+            program(1.0,-1.0,timePer90,ARM_ATTACH_HANGING_HOOK,WRIST_FOLDED_OUT,INTAKE_OFF);//Robot rotates to go to low rung
+            program(-1.0,-1.0,timePerTile * 2,ARM_ATTACH_HANGING_HOOK,WRIST_FOLDED_OUT,INTAKE_OFF);//Robot drives to low rung
             program(-1.0,1.0,timePer90,ARM_ATTACH_HANGING_HOOK,WRIST_FOLDED_OUT,INTAKE_OFF);//Robot rotates to go to low rung
-            program(1.0,1.0,timePerTile,ARM_ATTACH_HANGING_HOOK,WRIST_FOLDED_OUT,INTAKE_OFF);//Robot drives to low rung
-            program(1.0,-1.0,timePer90,ARM_ATTACH_HANGING_HOOK,WRIST_FOLDED_OUT,INTAKE_OFF);//Robot rotates to go to low rung
-            program(1.0,1.0,timePerTile,ARM_ATTACH_HANGING_HOOK,WRIST_FOLDED_OUT,INTAKE_OFF);//Robot drives to low rung
-            program(1.0,-1.0,timePer90,ARM_ATTACH_HANGING_HOOK,WRIST_FOLDED_OUT,INTAKE_OFF);//Robot rotates to go to low rung
-            program(1.0,1.0,timePerTile,ARM_ATTACH_HANGING_HOOK,WRIST_FOLDED_OUT,INTAKE_OFF);//Robot drives to low rung
+            program(-1.0,-1.0,timePerTile * 1.5,ARM_ATTACH_HANGING_HOOK,WRIST_FOLDED_OUT,INTAKE_OFF);//Robot drives to low rung
+            program(-1.0,1.0,timePer90,ARM_ATTACH_HANGING_HOOK,WRIST_FOLDED_OUT,INTAKE_OFF);//Robot rotates to go to low rung
+            program(-1.0,-1.0,timePerTile * 0.5,ARM_ATTACH_HANGING_HOOK,WRIST_FOLDED_OUT,INTAKE_OFF);//Robot drives to low rung
             program(0,0,timePerTile,ARM_ATTACH_HANGING_HOOK,WRIST_FOLDED_OUT,INTAKE_OFF);//robot at low rung
             // Example telemetry feedback
             if (((DcMotorEx) armMotor).isOverCurrent()) {
