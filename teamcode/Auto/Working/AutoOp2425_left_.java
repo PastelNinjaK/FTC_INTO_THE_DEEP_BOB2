@@ -59,13 +59,12 @@ public class AutoOp2425_left_ extends LinearOpMode {
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         wrist.setPosition(WRIST_FOLDED_IN);
         wheelServo.setPower(INTAKE_OFF);
+        leftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         waitForStart();
 
         if (opModeIsActive()) {
-            leftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            rightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             // Fill this up with the program
             program(-1.0,-1.0,timePerTile,ARM_SCORE_SPECIMEN,WRIST_FOLDED_IN,INTAKE_OFF);//Robot turns on
             program(-1.0,1.0,timePer90,ARM_SCORE_SPECIMEN,WRIST_FOLDED_IN,INTAKE_OFF);//Robot rotates
