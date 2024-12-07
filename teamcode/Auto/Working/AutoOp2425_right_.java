@@ -21,7 +21,7 @@ public class AutoOp2425_right_ extends LinearOpMode {
     // Constants for arm and wrist
     final double ARM_TICKS_PER_DEGREE = 19.7924893140647; //exact fraction is (194481/9826)
     double timePerTile = 0.180028069583241;
-    double timePer90 = 0;
+    double timePer90 = 0.3342359768;
 
 
     final double ARM_COLLAPSED_INTO_ROBOT  = 0;
