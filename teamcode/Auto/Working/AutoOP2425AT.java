@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 
 @Autonomous(name = "AutoOP2425AT", group = "Robot")
-public class TeleOp2425M1 extends LinearOpMode {
+public class AutoOP2425AT extends LinearOpMode {
   private DcMotor LFDrive;
   private DcMotor RFDrive;
   private DcMotor LRDrive;
