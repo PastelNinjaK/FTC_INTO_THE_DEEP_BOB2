@@ -47,29 +47,23 @@ public class TeleOp2425M1 extends LinearOpMode {
         // Drive control
         double y = gamepad1.left_stick_y;
         double x = gamepad1.left_stick_x;
-        double LFPower = y;
-        double RFPower = y;
-        double LRPower = y;
-        double RRPower = y;
-        double slide = 0;
+        double LFPower;
+        double RFPower;
+        double LRPower;
+        double RRPower;
+        double slidePower;
         int drive = 0;
         if(gamepad1.a){
           drive++;
         }// end of if
         if(drive % 2 == 0) {
-          if ( x > 0) {
+          if ( x != 0 && y != 0) {
             // Rotate right
-            LFPower = y + x;
-            RFPower = y - x;
-            LRPower = y + x;
-            RRPower = y - x;
-          }else if ( x < 0) {
-            // Rotate left
             LFPower = y - x;
             RFPower = y + x;
             LRPower = y - x;
             RRPower = y + x;
-          }// end of if
+          }//end of if
         }else if(drive % 2 == 1){
           if( x < 0) {
             //move left
@@ -78,12 +72,18 @@ public class TeleOp2425M1 extends LinearOpMode {
             LRPower = x;
             RRPower = -x;
           } else if ( x > 0) {
-            //move left
+            //move right
             LFPower = x;
             RFPower = -x;
             LRPower = -x;
             RRPower = x;
-          }// end of if
+          } else if (y != 0){
+            //forward
+            LFPower = y;
+            RFPower = y;
+            LRPower = y;
+            RRPower = y;
+          }//end of if
         }// end of if
 
 
