@@ -57,24 +57,26 @@ public class TeleOp2425M1 extends LinearOpMode {
         if(gamepad1.a){
           wristServo++;
         }// end of if
-        if ( x2 != 0) {
-          // turn
-          LFPower = y - x1;
-          RFPower = y + x1;
-          LRPower = y - x1;
-          RRPower = y + x1;
-        }//end of if
-        if (x1 > 0){
-          // move right
-          LFPower = x1;
-          RFPower = -x1;
-          LRPower = -x1;
-          RRPower = x1;
-        }else if (x1 < 0){
-          LFPower = -x1;
-          RFPower = x1;
-          LRPower = x1;
-          RRPower = -x1;
+        if(y != 0) {
+          if (x2 != 0) {
+            // turn
+            LFPower = y - x1;
+            RFPower = y + x1;
+            LRPower = y - x1;
+            RRPower = y + x1;
+          }//end of if
+          if (x1 > 0) {
+            // move right
+            LFPower = x1;
+            RFPower = -x1;
+            LRPower = -x1;
+            RRPower = x1;
+          } else if (x1 < 0) {
+            LFPower = -x1;
+            RFPower = x1;
+            LRPower = x1;
+            RRPower = -x1;
+          }//end of if
         }
 
 
