@@ -17,8 +17,8 @@ public class AutoOP2425AT extends LinearOpMode {
   private DcMotor LRDrive;
   private DcMotor RRDrive;
   private DcMotor SlideMotor;
-  private Servo intake; // Declare the servo
-  private Servo wrist;
+  private Servo TiltServo; // Declare the servo
+  private Servo IntakeServo;
 
 
     @Override
@@ -29,9 +29,10 @@ public class AutoOP2425AT extends LinearOpMode {
     LRDrive = hardwareMap.get(DcMotor.class, "left_rear_drive");
     RRDrive = hardwareMap.get(DcMotor.class, "right_rear_drive");
     SlideMotor = hardwareMap.get(DcMotor.class, "slide_motor");
-    wrist = hardwareMap.get(Servo.class, "wrist_servo");
-    intake = hardwareMap.get(Servo.class, "intake_servo");
-    wrist.setPosition(0);// to be adjusted
+    TiltServo = hardwareMap.get(Servo.class, "tilt_servo");
+    IntakeServo = hardwareMap.get(Servo.class, "intake_servo");
+    TiltServo.setPosition(0);// to be adjusted
+    IntakeServo.setPosition(0);// to be adjusted(OPEN)
     //Brake mode
     LFDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     LRDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
