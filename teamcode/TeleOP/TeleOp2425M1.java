@@ -72,7 +72,7 @@ public class TeleOp2425M1 extends LinearOpMode {
         //     LRPower = y - x2;
         //     RRPower = y + x2;
         //   }//end of if
-          if (gamepad1.x && x1 > 0) {
+          if (x1 > 0) {
             // move right
             LFPower = x1;
             RFPower = -x1;
