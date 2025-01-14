@@ -14,11 +14,7 @@ public class TeleOp2425M1 extends LinearOpMode {
   private DcMotor RFDrive;
   private DcMotor LRDrive;
   private DcMotor RRDrive;
-  double LFPower;
-  double RFPower;
-  double LRPower;
-  double RRPower;
-  // private DcMotor SlideMotor;
+  private DcMotor SlideMotor;
   // private Servo TiltServo; // Declare the servo
   // private Servo IntakeServo;
 
@@ -29,7 +25,7 @@ public class TeleOp2425M1 extends LinearOpMode {
     RFDrive = hardwareMap.get(DcMotor.class, "right_front_drive");
     LRDrive = hardwareMap.get(DcMotor.class, "left_rear_drive");
     RRDrive = hardwareMap.get(DcMotor.class, "right_rear_drive");
-    // SlideMotor = hardwareMap.get(DcMotor.class, "slide_motor");
+    SlideMotor = hardwareMap.get(DcMotor.class, "slide_motor");
     // TiltServo = hardwareMap.get(Servo.class, "tilt_servo");
     // IntakeServo = hardwareMap.get(Servo.class, "intake_servo");
     // TiltServo.setPosition(0);// to be adjusted
@@ -39,7 +35,7 @@ public class TeleOp2425M1 extends LinearOpMode {
     LRDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     RFDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     RRDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-    // SlideMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    SlideMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     // Reverse necessary motor direction
     LRDrive.setDirection(DcMotor.Direction.REVERSE);
     RFDrive.setDirection(DcMotor.Direction.REVERSE);
@@ -55,11 +51,11 @@ public class TeleOp2425M1 extends LinearOpMode {
         double x1 = gamepad1.left_stick_x;
         double x2 = gamepad1.right_stick_x;
 
-        LFPower = y - x2;
-        RFPower = y + x2;
-        LRPower = y - x2;
-        RRPower = y + x2;
-        // double slidePower = gamepad1.right_trigger - gamepad1.left_trigger;
+        double LFPower = y - x2;
+        double RFPower = y + x2;
+        double LRPower = y - x2;
+        double RRPower = y + x2;
+        double slidePower = gamepad1.right_trigger - gamepad1.left_trigger;
         // int tilt = 0;
         // int intake = 0;
 
@@ -92,7 +88,7 @@ public class TeleOp2425M1 extends LinearOpMode {
         RFDrive.setPower(RFPower);
         LRDrive.setPower(LRPower);
         RRDrive.setPower(RRPower);
-        // SlideMotor.setPower(slidePower);
+        SlideMotor.setPower(slidePower);
         // //insert arm and servo code here
 
         // if(gamepad1.a){
