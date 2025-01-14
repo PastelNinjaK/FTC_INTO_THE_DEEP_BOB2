@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -74,16 +73,16 @@ public class TeleOp2425M1 extends LinearOpMode {
         //   }//end of if
           if (x1 > 0) {
             // move right
-            LFPower = x1;
-            RFPower = -x1;
-            LRPower = -x1;
-            RRPower = x1;
+            LFPower = y + x1;
+            RFPower = y - x1;
+            LRPower = y - x1;
+            RRPower = y + x1;
           } 
           if (x1 < 0) {
-            LFPower = -x1;
-            RFPower = x1;
-            LRPower = x1;
-            RRPower = -x1;
+            LFPower = y - x1;
+            RFPower = y + x1;
+            LRPower = y + x1;
+            RRPower = y - x1;
           }//end of if
         // }
 
