@@ -59,28 +59,10 @@ public class TeleOp2425M1 extends LinearOpMode {
         // int tilt = 0;
         // int intake = 0;
 
-        // if(y != 0){
-        //   if (x2 != 0) {
-        //     // turn
-        //     LFPower = y - x2;
-        //     RFPower = y + x2;
-        //     LRPower = y - x2;
-        //     RRPower = y + x2;
-        //   }//end of if
-          if (x1 > 0) {
-            // move right
-            LFPower = y + x1;
-            RFPower = y - x1;
-            LRPower = y - x1;
-            RRPower = y + x1;
-          } 
-          if (x1 < 0) {
-            LFPower = y - x1;
-            RFPower = y + x1;
-            LRPower = y + x1;
-            RRPower = y - x1;
-          }//end of if
-        // }
+        LFPower = y - x2 - x1;
+        RFPower = y + x2 + x1;
+        LRPower = y - x2 + x1;
+        RRPower = y + x2 - x1;
 
 
 
