@@ -50,19 +50,21 @@ public class TeleOp2425M1 extends LinearOpMode {
         double y = gamepad1.left_stick_y;
         double x1 = gamepad1.left_stick_x;
         double x2 = gamepad1.right_stick_x;
-
-        double LFPower = y - x2;
-        double RFPower = y + x2;
-        double LRPower = y - x2;
-        double RRPower = y + x2;
-        double slidePower = gamepad1.right_trigger - gamepad1.left_trigger;
+        //option 1
+        double LFPower = y - x2 - x1;
+        double RFPower = y + x2 + x1;
+        double LRPower = y - x2 + x1;
+        double RRPower = y + x2 - x1;
+        //option 2
+        // double LFPower = y - x1 - x2;
+        // double RFPower = y + x1 + x2;
+        // double LRPower = y - x1 + x2;
+        // double RRPower = y + x1 - x2;
+        double slidePower = gamepad1.left_trigger - gamepad1.right_trigger;
         // int tilt = 0;
         // int intake = 0;
 
-        LFPower = y - x2 - x1;
-        RFPower = y + x2 + x1;
-        LRPower = y - x2 + x1;
-        RRPower = y + x2 - x1;
+
 
 
 
@@ -97,6 +99,5 @@ public class TeleOp2425M1 extends LinearOpMode {
   }
 
 }
-
 
 
