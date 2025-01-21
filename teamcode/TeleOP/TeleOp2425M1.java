@@ -15,7 +15,9 @@ public class TeleOp2425M1 extends LinearOpMode {
   private DcMotor LRDrive;
   private DcMotor RRDrive;
   private DcMotor SlideMotor;
-  // private Servo TiltServo; // Declare the servo
+  private Servo TiltServoR;
+  private Servo TiltServoL;
+
   // private Servo IntakeServo;
 
   @Override
@@ -26,9 +28,9 @@ public class TeleOp2425M1 extends LinearOpMode {
     LRDrive = hardwareMap.get(DcMotor.class, "left_rear_drive");
     RRDrive = hardwareMap.get(DcMotor.class, "right_rear_drive");
     SlideMotor = hardwareMap.get(DcMotor.class, "slide_motor");
-    // TiltServo = hardwareMap.get(Servo.class, "tilt_servo");
+    TiltServoR = hardwareMap.get(Servo.class, "right_tilt_servo");
+    TiltServoL = hardwareMap.get(Servo.class, "left_tilt_servo");
     // IntakeServo = hardwareMap.get(Servo.class, "intake_servo");
-    // TiltServo.setPosition(0);// to be adjusted
     // IntakeServo.setPosition(0);// to be adjusted(OPEN)
     //Brake mode
     LFDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -39,10 +41,14 @@ public class TeleOp2425M1 extends LinearOpMode {
     // Reverse necessary motor direction
     LRDrive.setDirection(DcMotor.Direction.REVERSE);
     RFDrive.setDirection(DcMotor.Direction.REVERSE);
+    TiltServoR.setDirection(Servo.Direction.REVERSE);
 
 
-;
+
+    ;
     waitForStart();
+    TiltServoR.setPosition(0);
+    TiltServoL.setPosition(0.025);
 
     if (opModeIsActive()) {
       while (opModeIsActive()) {
@@ -61,12 +67,8 @@ public class TeleOp2425M1 extends LinearOpMode {
         // double LRPower = y - x1 + x2;
         // double RRPower = y + x1 - x2;
         double slidePower = gamepad1.left_trigger - gamepad1.right_trigger;
-        // int tilt = 0;
+        int tilt = 0;
         // int intake = 0;
-
-
-
-
 
         LFDrive.setPower(LFPower);
         RFDrive.setPower(RFPower);
@@ -78,13 +80,18 @@ public class TeleOp2425M1 extends LinearOpMode {
         // if(gamepad1.a){
         //   tilt++;
         // }// end of if
-        // if(tilt % 2 == 0){
-        //   //servo is straight
-        //   TiltServo.setPosition(0);
-        // }else if(tiltServo == 1){
-        //   //Servo is tilted
-        //   TiltServo.setPosition(0.45);
-        // }//end of if
+        if(gamepad1.dpad_up){
+          //servo is straight
+          TiltServoR.setPosition(0);
+          TiltServoL.setPosition(0.025);
+
+        }//end of if
+        if(gamepad1.dpad_down){
+          //Servo is tilted
+          TiltServoR.setPosition(0.35);
+          TiltServoL.setPosition(0.375);
+
+        }//end of if
         // if(gamepad1.x){
         //   TiltServo.setPosition(0.6);
         //   IntakeServo.setPosition(0);//Open
