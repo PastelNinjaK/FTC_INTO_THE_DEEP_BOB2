@@ -76,11 +76,7 @@ public class TeleOp2425M1 extends LinearOpMode {
         LRDrive.setPower(LRPower);
         RRDrive.setPower(RRPower);
         SlideMotor.setPower(slidePower);
-        // //insert arm and servo code here
 
-        // if(gamepad1.a){
-        //   tilt++;
-        // }// end of if
         if(gamepad1.dpad_up){
           //servo is straight
           TiltServoR.setPosition(0);
