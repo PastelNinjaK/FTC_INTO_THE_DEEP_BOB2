@@ -19,6 +19,15 @@ public class AutoOP2425AT extends LinearOpMode {
   private DcMotor SlideMotor;
   private Servo TiltServoR;
   private Servo TiltServoL;
+  
+  final double arm_ticks_per_degree = 0.404;
+  final double low_rung = 0 * arm_ticks_per_degree;
+  final double high_rung = 0 * arm_ticks_per_degree;
+  final double low_basket = 0 * arm_ticks_per_degree;
+  final double high_basket = 0 * arm_ticks_per_degree;
+  final double low_chamber = 0 * arm_ticks_per_degree;
+  final double high_chamber = 0 * arm_ticks_per_degree;
+
 
 
     @Override
