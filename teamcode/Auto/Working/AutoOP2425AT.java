@@ -17,8 +17,8 @@ public class AutoOP2425AT extends LinearOpMode {
   private DcMotor LRDrive;
   private DcMotor RRDrive;
   private DcMotor SlideMotor;
-  private Servo TiltServo; // Declare the servo
-  private Servo IntakeServo;
+  private Servo TiltServoR;
+  private Servo TiltServoL;
 
 
     @Override
@@ -29,10 +29,10 @@ public class AutoOP2425AT extends LinearOpMode {
     LRDrive = hardwareMap.get(DcMotor.class, "left_rear_drive");
     RRDrive = hardwareMap.get(DcMotor.class, "right_rear_drive");
     SlideMotor = hardwareMap.get(DcMotor.class, "slide_motor");
-    TiltServo = hardwareMap.get(Servo.class, "tilt_servo");
-    IntakeServo = hardwareMap.get(Servo.class, "intake_servo");
-    TiltServo.setPosition(0);// to be adjusted
-    IntakeServo.setPosition(0);// to be adjusted(OPEN)
+    TiltServoR = hardwareMap.get(Servo.class, "right_tilt_servo");
+    TiltServoL = hardwareMap.get(Servo.class, "left_tilt_servo");
+    // IntakeServo = hardwareMap.get(Servo.class, "intake_servo");
+    // IntakeServo.setPosition(0);// to be adjusted(OPEN)
     //Brake mode
     LFDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     LRDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -40,6 +40,9 @@ public class AutoOP2425AT extends LinearOpMode {
     RRDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     SlideMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     // Reverse necessary motor direction
+    LRDrive.setDirection(DcMotor.Direction.REVERSE);
+    RFDrive.setDirection(DcMotor.Direction.REVERSE);
+    TiltServoR.setDirection(Servo.Direction.REVERSE);
 
 
 ;
