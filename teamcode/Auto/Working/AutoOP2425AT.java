@@ -49,9 +49,34 @@ public class AutoOP2425AT extends LinearOpMode {
     waitForStart();
 
     if (opModeIsActive()) {
-            
+           program();
     
       }
+    }
+
+    public void program(double LFPower, double LRPower,double RFPower, double RRPower, double delay, double armPosition, double wristPosition, double intake) {
+      LFDrive.setPower(LFPower);
+      RFDrive.setPower(RFPower);
+      LRDrive.setPower(LRPower);
+      RRDrive.setPower(RRPower);
+
+
+      if (armMotor.getTargetPosition() != (int) armPosition) {
+        armMotor.setTargetPosition((int) armPosition);
+        ((DcMotorEx) armMotor).setVelocity(2100);
+        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+      }
+
+      TiltServoR.setPosition(wristPosition);
+      TiltServoL.setPosition(wristPosition + 0.025);
+      wheelServo.setPower(intake);
+
+      sleep((long) (delay * 1000));
+
+      LFDrive.setPower(0);
+      RFDrive.setPower(0);
+      LRDrive.setPower(0);
+      RRDrive.setPower(0);
     }
   }
 
