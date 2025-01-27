@@ -1,0 +1,105 @@
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.robot.Robot;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.Servo;
+
+import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
+
+@Autonomous(name = "AutoOP2425AT1", group = "Robot")
+public class AutoOP2425AT1 extends LinearOpMode {
+  private DcMotor LFDrive;
+  private DcMotor RFDrive;
+  private DcMotor LRDrive;
+  private DcMotor RRDrive;
+  private DcMotor SlideMotor;
+  private Servo TiltServoR;
+  private Servo TiltServoL;
+
+  final double arm_ticks_per_degree = 0.404;
+  final double low_rung = 0 * arm_ticks_per_degree;
+  final double high_rung = 0 * arm_ticks_per_degree;
+  final double low_basket = 0 * arm_ticks_per_degree;
+  final double high_basket = 0 * arm_ticks_per_degree;
+  final double low_chamber = 0 * arm_ticks_per_degree;
+  final double high_chamber = 0 * arm_ticks_per_degree;
+  final double slide_off = 0;
+
+
+
+  @Override
+  public void runOpMode() {
+    // Initialize motors
+    LFDrive = hardwareMap.get(DcMotor.class, "left_front_drive");
+    RFDrive = hardwareMap.get(DcMotor.class, "right_front_drive");
+    LRDrive = hardwareMap.get(DcMotor.class, "left_rear_drive");
+    RRDrive = hardwareMap.get(DcMotor.class, "right_rear_drive");
+    SlideMotor = hardwareMap.get(DcMotor.class, "slide_motor");
+    TiltServoR = hardwareMap.get(Servo.class, "right_tilt_servo");
+    TiltServoL = hardwareMap.get(Servo.class, "left_tilt_servo");
+     IntakeServo = hardwareMap.get(Servo.class, "intake_servo");
+     IntakeServo.setPosition(0);// to be adjusted(OPEN)
+    //Brake mode
+    LFDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    LRDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    RFDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    RRDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    SlideMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    // Reverse necessary motor direction
+    LRDrive.setDirection(DcMotor.Direction.REVERSE);
+    RFDrive.setDirection(DcMotor.Direction.REVERSE);
+    TiltServoR.setDirection(Servo.Direction.REVERSE);
+    SlideMotor.setTargetPosition(slide_off);
+
+    ;
+    waitForStart();
+
+    if (opModeIsActive()) {
+      program(1.0,1.0,1.0,1.0,1,slide_off,"Straight","On");
+      program(0,0,0,0,1,high_chamber,"Straight","On");
+      program(-1.0,-1.0,-1.0,-1.0,1,high_chamber,"Straight","Off");
+      program(1.0,-1.0,-1.0,1.0,1,slide_off,"Straight","Off");
+
+    }
+  }
+
+  public void program(double LFPower, double LRPower,double RFPower, double RRPower, double delay, double slidePosition, String wristPosition, String intake) {
+    LFDrive.setPower(LFPower);
+    RFDrive.setPower(RFPower);
+    LRDrive.setPower(LRPower);
+    RRDrive.setPower(RRPower);
+
+
+    if (SlideMotor.getTargetPosition() != (int) slidePosition) {
+      SlideMotor.setTargetPosition((int) slidePosition);
+      ((DcMotorEx) SlideMotor).setVelocity(2100);
+      SlideMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    }// end of if
+    if (wristPosition == "Straight") {
+      TiltServoR.setPosition(0);
+      TiltServoL.setPosition(0.0195);
+    }// end of if
+    if (wristPosition == "Tilt") {
+      TiltServoR.setPosition(0.35);
+      TiltServoL.setPosition(0.3695);
+    }// end of if
+
+    if (intake == "On")
+      IntakeServo.setPosition(0.4);
+    }//end of if
+    if (intake == "Off"){
+      IntakeServo.setPosition(0);
+    }//end of if
+
+    sleep((long) (delay * 1000));
+
+    LFDrive.setPower(0);
+    RFDrive.setPower(0);
+    LRDrive.setPower(0);
+    RRDrive.setPower(0);
+  }
+}
