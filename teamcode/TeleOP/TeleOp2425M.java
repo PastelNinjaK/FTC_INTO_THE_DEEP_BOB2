@@ -20,7 +20,8 @@ public class TeleOp2425M extends LinearOpMode {
     private double leftOutput = 0;
     private double rightOutput = 0;
     private static final double ARM_TICKS_PER_DEGREE = 0.404;
-    private static final double TOLERANCE = 10; // Tolerance for slide position adjustments
+    // private static final double TOLERANCE = 10; // Tolerance for slide position adjustments
+    double output = 0
 
     @Override
     public void runOpMode() {
@@ -69,22 +70,22 @@ public class TeleOp2425M extends LinearOpMode {
                 RRDrive.setPower(RRPower);
 
                 // Slide motor control with triggers
-                if (gamepad1.left_trigger > 0) {
-                    leftOutput -= gamepad1.left_trigger; // Decrease position
+                if (gamepad1.dpad_right) {
+                    output = 13; // Decrease position
                 }
-                if (gamepad1.right_trigger > 0) {
-                    rightOutput += gamepad1.right_trigger; // Increase position
+                if (gamepad1.dpad_left) {
+                    output += 42; // Increase position
                 }
 
                 // Calculate the new target position
-                SlidePosition = (leftOutput - rightOutput) * ARM_TICKS_PER_DEGREE;
+                SlidePosition = output * ARM_TICKS_PER_DEGREE;
 
                 // Update slide motor position if necessary
-                if (Math.abs(SlideMotor.getCurrentPosition() - SlidePosition) > TOLERANCE) {
-                    SlideMotor.setTargetPosition((int) SlidePosition);
-                    ((DcMotorEx) SlideMotor).setVelocity(2100);
-                    SlideMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                }
+                  if (armMotor.getTargetPosition() != (int) SlidePosition) {
+                    armMotor.setTargetPosition((int) armPosition);
+                    ((DcMotorEx) armMotor).setVelocity(2100);
+                    armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                  }
 
                 // Tilt servo control
                 if (gamepad1.dpad_up) {
