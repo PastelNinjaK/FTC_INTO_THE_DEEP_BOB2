@@ -91,12 +91,14 @@ public class TeleOp2425M2 extends LinearOpMode {
 
         }//end of if
         if(gamepad1.x){
-          TiltServo.setPosition(0.5);
+          TiltServoR.setPosition(0.5);
+          TiltServoL.setPosition(0.5);
           IntakeServo.setPosition(0);//Open
           TimeUnit.SECONDS.sleep(1);
           IntakeServo.setPosition(0.45);//Close
           TimeUnit.SECONDS.sleep(1);
           TiltServo.setPosition(0.35);
+          TiltServoL.setPosition(0.375);
         }//end of if
 
       }
