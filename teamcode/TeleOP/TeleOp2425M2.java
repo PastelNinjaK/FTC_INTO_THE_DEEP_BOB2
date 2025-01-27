@@ -9,8 +9,8 @@ import com.qualcomm.robotcore.hardware.CRServo;
 
 
 
-@TeleOp(name = "TeleOp2425M1")
-public class TeleOp2425M1 extends LinearOpMode {
+@TeleOp(name = "TeleOp2425M2")
+public class TeleOp2425M2 extends LinearOpMode {
   private DcMotor LFDrive;
   private DcMotor RFDrive;
   private DcMotor LRDrive;
