@@ -18,6 +18,8 @@ public class TeleOp2425M2 extends LinearOpMode {
   private DcMotor SlideMotor;
   private Servo TiltServoR;
   private Servo TiltServoL;
+  private static final int SLIDE_MIN_POSITION = 0;      // Adjust based on hardware
+  private static final int SLIDE_MAX_POSITION = 1000;  // Adjust based on hardware
 
   // private Servo IntakeServo;
 
@@ -100,6 +102,21 @@ public class TeleOp2425M2 extends LinearOpMode {
           TiltServoL.setPosition(0.375);
 
         }//end of if
+        
+        //Intake Servo Control
+        
+        // if(gamepad1.dppad_right){
+        //   //Servo is Open
+        //   IntakeServo.setPosition(0);
+        // }// end of if
+        // if(gamepad1.dpad_left){
+        //   //Servo is closed
+        //   IntakeServo.setPosition(0.4);
+        // }// end of if
+        
+        
+        
+        
         // if(gamepad1.x){
         //   TiltServoR.setPosition(0.5);
         //   TiltServoL.setPosition(0.5);
