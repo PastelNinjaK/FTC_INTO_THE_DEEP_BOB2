@@ -30,7 +30,8 @@ public class TeleOp2425M1 extends LinearOpMode {
     SlideMotor = hardwareMap.get(DcMotor.class, "slide_motor");
     TiltServoR = hardwareMap.get(Servo.class, "right_tilt_servo");
     TiltServoL = hardwareMap.get(Servo.class, "left_tilt_servo");
-
+    // IntakeServo = hardwareMap.get(Servo.class, "intake_servo");
+    // IntakeServo.setPosition(0);
     // Set motor brake behavior
     LFDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     LRDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -77,10 +78,22 @@ public class TeleOp2425M1 extends LinearOpMode {
         if (gamepad1.dpad_up) {
           TiltServoR.setPosition(0.0); // Neutral position
           TiltServoL.setPosition(0.025);
-        } else if (gamepad1.dpad_down) {
+        } 
+        if (gamepad1.dpad_down) {
           TiltServoR.setPosition(0.35); // Tilted position
           TiltServoL.setPosition(0.375);
-        }
+        }//end of if
+
+        //Intake Servo Control
+        
+        // if(gamepad1.dppad_right){
+        //   //Servo is Open
+        //   IntakeServo.setPosition(0);
+        // }// end of if
+        // if(gamepad1.dpad_left){
+        //   //Servo is closed
+        //   IntakeServo.setPosition(0.4);
+        // }// end of if
       }
     }
   }
