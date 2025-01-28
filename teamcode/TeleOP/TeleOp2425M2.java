@@ -46,7 +46,9 @@ public class TeleOp2425M2 extends LinearOpMode {
 
 
 
-    ;
+    //Slide Encoder
+    SlideMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
     waitForStart();
 
     if (opModeIsActive()) {
@@ -76,6 +78,14 @@ public class TeleOp2425M2 extends LinearOpMode {
         RFDrive.setPower(RFPower);
         LRDrive.setPower(LRPower);
         RRDrive.setPower(RRPower);
+                // Slide motor control with limits
+        double slidePower = gamepad1.left_trigger - gamepad1.right_trigger;
+        int currentSlidePosition = SlideMotor.getCurrentPosition();
+
+        if (slidePower > 0 && currentSlidePosition >= SLIDE_MAX_POSITION) {
+          slidePower = 0; // Stop moving up
+        }
+        
         SlideMotor.setPower(slidePower);
         
         if(gamepad1.dpad_up){
@@ -90,16 +100,16 @@ public class TeleOp2425M2 extends LinearOpMode {
           TiltServoL.setPosition(0.375);
 
         }//end of if
-        if(gamepad1.x){
-          TiltServoR.setPosition(0.5);
-          TiltServoL.setPosition(0.5);
-          IntakeServo.setPosition(0);//Open
-          TimeUnit.SECONDS.sleep(1);
-          IntakeServo.setPosition(0.45);//Close
-          TimeUnit.SECONDS.sleep(1);
-          TiltServo.setPosition(0.35);
-          TiltServoL.setPosition(0.375);
-        }//end of if
+        // if(gamepad1.x){
+        //   TiltServoR.setPosition(0.5);
+        //   TiltServoL.setPosition(0.5);
+        //   IntakeServo.setPosition(0);//Open
+        //   TimeUnit.SECONDS.sleep(1);
+        //   IntakeServo.setPosition(0.45);//Close
+        //   TimeUnit.SECONDS.sleep(1);
+        //   TiltServo.setPosition(0.35);
+        //   TiltServoL.setPosition(0.375);
+        // }//end of if
 
       }
     }
