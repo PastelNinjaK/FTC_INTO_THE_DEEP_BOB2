@@ -22,6 +22,8 @@ public class TeleOp2425M extends LinearOpMode {
   private double rightOutput = 0;
   private static final double ARM_TICKS_PER_DEGREE = 0.404;
 
+  double test = 100 * ARM_TICKS_PER_DEGREE;
+
   // Define minimum and maximum slide positions
   private static final int SLIDE_MIN_POSITION = 0; // Lowest allowed position
   private static final int SLIDE_MAX_POSITION = 1000; // Highest allowed position
@@ -80,18 +82,16 @@ public class TeleOp2425M extends LinearOpMode {
         RRDrive.setPower(RRPower);
 
         // Slide motor control with triggers
-        if (gamepad1.left_trigger > 0) {
-          leftOutput += 360 * leftFactor; // Decrease position
-        }
-        if (gamepad1.right_trigger > 0) {
-          rightOutput += 360 * rightFactor; // Increase position
+        if (gamepad1.a) {
+          leftOutput = test; // Decrease position
         }
 
-        // Calculate the new target position
-        SlidePosition = Math.Abs((leftOutput - rightOutput) * ARM_TICKS_PER_DEGREE);
 
-        // Ensure SlidePosition is within bounds
-        SlidePosition = Math.max(SLIDE_MIN_POSITION, Math.min(SlidePosition, SLIDE_MAX_POSITION));
+        // // Calculate the new target position
+        // SlidePosition = Math.Abs((leftOutput - rightOutput) * ARM_TICKS_PER_DEGREE);
+
+        // // Ensure SlidePosition is within bounds
+        // SlidePosition = Math.max(SLIDE_MIN_POSITION, Math.min(SlidePosition, SLIDE_MAX_POSITION));
 
         // Update slide motor position if necessary
         if (SlideMotor.getTargetPosition() != (int) SlidePosition) {
