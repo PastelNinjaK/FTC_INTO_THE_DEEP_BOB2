@@ -43,6 +43,10 @@ public class TeleOp2425M1 extends LinearOpMode {
     RFDrive.setDirection(DcMotor.Direction.REVERSE);
     TiltServoR.setDirection(Servo.Direction.REVERSE);
 
+    //Slide Encoder
+
+    SlideMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    
     waitForStart();
 
     if (opModeIsActive()) {
@@ -65,15 +69,7 @@ public class TeleOp2425M1 extends LinearOpMode {
         LRDrive.setPower(LRPower);
         RRDrive.setPower(RRPower);
 
-        // Slide motor control with limits
-        double slidePower = gamepad1.left_trigger - gamepad1.right_trigger;
-        int currentSlidePosition = SlideMotor.getCurrentPosition();
 
-        if (slidePower > 0 && currentSlidePosition >= SLIDE_MAX_POSITION) {
-          slidePower = 0; // Stop moving up
-        } else if (slidePower < 0 && currentSlidePosition <= SLIDE_MIN_POSITION) {
-          slidePower = 0; // Stop moving down
-        }
 
         SlideMotor.setPower(slidePower);
 
