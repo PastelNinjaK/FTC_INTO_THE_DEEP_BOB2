@@ -36,12 +36,11 @@ public class TeleOp2425M extends LinearOpMode {
     SlideMotor = hardwareMap.get(DcMotor.class, "slide_motor");
     TiltServoR = hardwareMap.get(Servo.class, "right_tilt_servo");
     TiltServoL = hardwareMap.get(Servo.class, "left_tilt_servo");
-    IntakeServo = hardwareMap.get(Servo.class, "intake_servo");
+    // IntakeServo = hardwareMap.get(Servo.class, "intake_servo");
 
     // Initialize servo positions
-    TiltServoR.setPosition(0.0);
-    TiltServoL.setPosition(0.0195);
-    IntakeServo.setPosition(0);
+
+    // IntakeServo.setPosition(0);
 
     // Set motor brake behavior
     LFDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -54,10 +53,14 @@ public class TeleOp2425M extends LinearOpMode {
     LRDrive.setDirection(DcMotor.Direction.REVERSE);
     RFDrive.setDirection(DcMotor.Direction.REVERSE);
     TiltServoR.setDirection(Servo.Direction.REVERSE);
+    // Slide encoder
+    SlideMotor.setMode(DcMotor.RUN_USING_ENCODER);
 
     waitForStart();
 
     if (opModeIsActive()) {
+      TiltServoR.setPosition(0.0);
+      TiltServoL.setPosition(0.0195);
       while (opModeIsActive()) {
         // Drive control
         double y = -gamepad1.left_stick_y; // Forward/backward
@@ -85,7 +88,7 @@ public class TeleOp2425M extends LinearOpMode {
         }
 
         // Calculate the new target position
-        SlidePosition = (leftOutput - rightOutput) * ARM_TICKS_PER_DEGREE;
+        SlidePosition = Math.Abs((leftOutput - rightOutput) * ARM_TICKS_PER_DEGREE);
 
         // Ensure SlidePosition is within bounds
         SlidePosition = Math.max(SLIDE_MIN_POSITION, Math.min(SlidePosition, SLIDE_MAX_POSITION));
@@ -104,7 +107,18 @@ public class TeleOp2425M extends LinearOpMode {
         } else if (gamepad1.dpad_down) {
           TiltServoR.setPosition(0.35); // Tilted position
           TiltServoL.setPosition(0.375);
-        }
+        }// end of if
+
+        //Intake Servo Control
+
+        // if(gamepad1.dppad_right){
+        //   //Servo is Open
+        //   IntakeServo.setPosition(0);
+        // }// end of if
+        // if(gamepad1.dpad_left){
+        //   //Servo is closed
+        //   IntakeServo.setPosition(0.4);
+        // }// end of if
       }
     }
   }
