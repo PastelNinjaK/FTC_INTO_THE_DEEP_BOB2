@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
+import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 
 @TeleOp(name = "TeleOp2425M")
 public class TeleOp2425M extends LinearOpMode {
@@ -17,16 +18,17 @@ public class TeleOp2425M extends LinearOpMode {
   private Servo TiltServoL;
   private Servo IntakeServo;
 
-  private double SlidePosition = 0;
+  private double slidePosition = 0;
   private double leftOutput = 0;
   private double rightOutput = 0;
   private static final double ARM_TICKS_PER_DEGREE = 0.404;
 
-  double test = 100 * ARM_TICKS_PER_DEGREE;
+  private double test = 360 * ARM_TICKS_PER_DEGREE;
 
   // Define minimum and maximum slide positions
-  private static final int SLIDE_MIN_POSITION = 0; // Lowest allowed position
+  private static final int SLIDE_MIN_POSITION = 10; // Lowest allowed position
   private static final int SLIDE_MAX_POSITION = 1000; // Highest allowed position
+
 
   @Override
   public void runOpMode() {
@@ -38,6 +40,7 @@ public class TeleOp2425M extends LinearOpMode {
     SlideMotor = hardwareMap.get(DcMotor.class, "slide_motor");
     TiltServoR = hardwareMap.get(Servo.class, "right_tilt_servo");
     TiltServoL = hardwareMap.get(Servo.class, "left_tilt_servo");
+    SlideMotor.setTargetPosition(SLIDE_MIN_POSITION);
     // IntakeServo = hardwareMap.get(Servo.class, "intake_servo");
 
     // Initialize servo positions
@@ -55,9 +58,15 @@ public class TeleOp2425M extends LinearOpMode {
     LRDrive.setDirection(DcMotor.Direction.REVERSE);
     RFDrive.setDirection(DcMotor.Direction.REVERSE);
     TiltServoR.setDirection(Servo.Direction.REVERSE);
-    // Slide encoder
-    SlideMotor.setMode(DcMotor.RUN_USING_ENCODER);
+    
+    
 
+    // Slide encoder
+    SlideMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    SlideMotor.setTargetPosition(SLIDE_MIN_POSITION);
+    SlideMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    
+    
     waitForStart();
 
     if (opModeIsActive()) {
@@ -83,22 +92,15 @@ public class TeleOp2425M extends LinearOpMode {
 
         // Slide motor control with triggers
         if (gamepad1.a) {
-          leftOutput = test; // Decrease position
+          slidePosition = test; // Decrease position
+        }
+        if (gamepad1.b){
+          slidePosition = SLIDE_MIN_POSITION;
         }
 
 
-        // // Calculate the new target position
-        // SlidePosition = Math.Abs((leftOutput - rightOutput) * ARM_TICKS_PER_DEGREE);
-
-        // // Ensure SlidePosition is within bounds
-        // SlidePosition = Math.max(SLIDE_MIN_POSITION, Math.min(SlidePosition, SLIDE_MAX_POSITION));
-
-        // Update slide motor position if necessary
-        if (SlideMotor.getTargetPosition() != (int) SlidePosition) {
-          SlideMotor.setTargetPosition((int) SlidePosition);
-          ((DcMotorEx) SlideMotor).setVelocity(2100);
-          SlideMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        }
+            SlideMotor.setTargetPosition((int) slidePosition);
+            ((DcMotorEx) SlideMotor).setVelocity(2100); // Adjust velocity as needed
 
         // Tilt servo control
         if (gamepad1.dpad_up) {
