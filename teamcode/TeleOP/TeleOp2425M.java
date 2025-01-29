@@ -23,11 +23,18 @@ public class TeleOp2425M extends LinearOpMode {
   private double rightOutput = 0;
   private static final double ARM_TICKS_PER_DEGREE = 0.404;
 
-  private double test = 360 * ARM_TICKS_PER_DEGREE;
+  final double arm_ticks_per_degree = 0.404;
+  final double low_rung = 1107.68; 
+  final double high_rung = 615.65 ;
+  final double low_basket = 799.93; 
+  final double high_basket = 1333.101; 
+  final double low_chamber = 399.93; 
+  final double high_chamber = 799.93; 
+  final double slide_off = 10;
 
   // Define minimum and maximum slide positions
-  private static final int SLIDE_MIN_POSITION = 10; // Lowest allowed position
-  private static final int SLIDE_MAX_POSITION = 1000; // Highest allowed position
+  // private static final int SLIDE_MIN_POSITION = 10; // Lowest allowed position
+  // private static final int SLIDE_MAX_POSITION = 1000; // Highest allowed position
 
 
   @Override
@@ -95,7 +102,7 @@ public class TeleOp2425M extends LinearOpMode {
           slidePosition = test; // Decrease position
         }
         if (gamepad1.b){
-          slidePosition = SLIDE_MIN_POSITION;
+          slidePosition = low_chamber;
         }
 
 
