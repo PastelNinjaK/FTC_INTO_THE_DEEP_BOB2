@@ -4,7 +4,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.CRServo;
 
 @TeleOp(name = "TeleOp2425M1")
 public class TeleOp2425M1 extends LinearOpMode {
@@ -15,10 +14,9 @@ public class TeleOp2425M1 extends LinearOpMode {
   private DcMotor SlideMotor;
   private Servo TiltServoR;
   private Servo TiltServoL;
+  private Servo IntakeServo;
 
-  // Slide motor limits
-  private static final int SLIDE_MIN_POSITION = 0;      // Adjust based on hardware
-  private static final int SLIDE_MAX_POSITION = 1000;  // Adjust based on hardware
+
 
   @Override
   public void runOpMode() {
@@ -30,8 +28,8 @@ public class TeleOp2425M1 extends LinearOpMode {
     SlideMotor = hardwareMap.get(DcMotor.class, "slide_motor");
     TiltServoR = hardwareMap.get(Servo.class, "right_tilt_servo");
     TiltServoL = hardwareMap.get(Servo.class, "left_tilt_servo");
-    // IntakeServo = hardwareMap.get(Servo.class, "intake_servo");
-    // IntakeServo.setPosition(0);
+    IntakeServo = hardwareMap.get(Servo.class, "intake_servo");
+    IntakeServo.setPosition(0);
     // Set motor brake behavior
     LFDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     LRDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -46,7 +44,6 @@ public class TeleOp2425M1 extends LinearOpMode {
 
     //Slide Encoder
 
-    SlideMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     
     waitForStart();
 
@@ -86,14 +83,14 @@ public class TeleOp2425M1 extends LinearOpMode {
 
         //Intake Servo Control
         
-        // if(gamepad1.dppad_right){
-        //   //Servo is Open
-        //   IntakeServo.setPosition(0);
-        // }// end of if
-        // if(gamepad1.dpad_left){
-        //   //Servo is closed
-        //   IntakeServo.setPosition(0.4);
-        // }// end of if
+        if(gamepad1.dppad_right){
+          //Servo is Open
+          IntakeServo.setPosition(0);
+        }// end of if
+        if(gamepad1.dpad_left){
+          //Servo is closed
+          IntakeServo.setPosition(0.4);
+        }// end of if
       }
     }
   }
