@@ -1,14 +1,13 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.robot.Robot;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
-
+import com.qualcomm.robotcore.exception.TargetPositionNotSetException;
 import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
+
 
 @Autonomous(name = "AutoOP2425AT2", group = "Robot")
 public class AutoOP2425AT2 extends LinearOpMode {
@@ -20,14 +19,13 @@ public class AutoOP2425AT2 extends LinearOpMode {
   private Servo TiltServoR;
   private Servo TiltServoL;
 
-  final double arm_ticks_per_degree = 0.404;
-  final double low_rung = 0 * arm_ticks_per_degree;
-  final double high_rung = 0 * arm_ticks_per_degree;
-  final double low_basket = 0 * arm_ticks_per_degree;
-  final double high_basket = 0 * arm_ticks_per_degree;
-  final double low_chamber = 0 * arm_ticks_per_degree;
-  final double high_chamber = 0 * arm_ticks_per_degree;
-  final double slide_off = 0;
+  final double low_rung = 578.7116112967108;
+  final double high_rung = 1070.7473672576434;
+  final double low_basket = 762.9220420998186;
+  final double high_basket = 1296.1627628456572;
+  final double low_chamber = 362.9915015404398;
+  final double high_chamber = 762.9220420998186;
+  final double slide_off = 10;
 
 
 
@@ -41,8 +39,8 @@ public class AutoOP2425AT2 extends LinearOpMode {
     SlideMotor = hardwareMap.get(DcMotor.class, "slide_motor");
     TiltServoR = hardwareMap.get(Servo.class, "right_tilt_servo");
     TiltServoL = hardwareMap.get(Servo.class, "left_tilt_servo");
-     IntakeServo = hardwareMap.get(Servo.class, "intake_servo");
-     IntakeServo.setPosition(0);// to be adjusted(OPEN)
+    IntakeServo = hardwareMap.get(Servo.class, "intake_servo");
+    IntakeServo.setPosition(0);// to be adjusted(OPEN)
     //Brake mode
     LFDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     LRDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -50,11 +48,14 @@ public class AutoOP2425AT2 extends LinearOpMode {
     RRDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     SlideMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     // Reverse necessary motor direction
-    LRDrive.setDirection(DcMotor.Direction.REVERSE);
-    RFDrive.setDirection(DcMotor.Direction.REVERSE);
+    
+    LFDrive.setDirection(DcMotor.Direction.REVERSE);
+    RRDrive.setDirection(DcMotor.Direction.REVERSE);
     TiltServoR.setDirection(Servo.Direction.REVERSE);
-    SlideMotor.setTargetPosition(slide_off);
-
+    
+    SlideMotor.setDirection(DcMotor.Direction.REVERSE);
+    SlideMotor.setTargetPosition(10);
+    SlideMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     ;
     waitForStart();
 
@@ -74,11 +75,10 @@ public class AutoOP2425AT2 extends LinearOpMode {
     RRDrive.setPower(RRPower);
 
 
-    if (SlideMotor.getTargetPosition() != (int) slidePosition) {
-      SlideMotor.setTargetPosition((int) slidePosition);
-      ((DcMotorEx) SlideMotor).setVelocity(2100);
-      SlideMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    }// end of if
+
+    SlideMotor.setTargetPosition((int) slidePosition);
+    ((DcMotorEx) SlideMotor).setVelocity(2100);
+
     if (wristPosition == "Straight") {
       TiltServoR.setPosition(0);
       TiltServoL.setPosition(0.0195);
