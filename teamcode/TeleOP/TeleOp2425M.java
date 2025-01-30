@@ -18,10 +18,8 @@ public class TeleOp2425M extends LinearOpMode {
   private Servo TiltServoL;
   private Servo IntakeServo;
 
-  private double slidePosition = 0;
-  private double leftOutput = 0;
-  private double rightOutput = 0;
-  private static final double ARM_TICKS_PER_DEGREE = 0.404;
+
+//  private static final double ARM_TICKS_PER_DEGREE = 0.404;
   final double low_rung = 578.7116112967108;
   final double high_rung = 1070.7473672576434;
   final double low_basket = 762.9220420998186;
@@ -31,12 +29,10 @@ public class TeleOp2425M extends LinearOpMode {
   final double slide_off = 10;
 
 
-  double test = 360 * ARM_TICKS_PER_DEGREE;
-  double down = 0 * ARM_TICKS_PER_DEGREE;
+
 
   // Define minimum and maximum slide positions
-  private static final int SLIDE_MIN_POSITION = 0; // Lowest allowed position
-  private static final int SLIDE_MAX_POSITION = 1000; // Highest allowed position
+ 
 
   @Override
   public void runOpMode() {
@@ -99,20 +95,30 @@ public class TeleOp2425M extends LinearOpMode {
         }
         if (gamepad1.b){
           slidePosition = slide_off; // Decrease position
-
-          
         }
 
+        if(gamepad1.x){
+          slidePosition = high_chamber;
+        }
+        if (gamepad1.y){
+          slidePosition = low_rung;
+        }
 
-        // // Calculate the new target position
-        // SlidePosition = Math.Abs((leftOutput - rightOutput) * ARM_TICKS_PER_DEGREE);
-
-        // // Ensure SlidePosition is within bounds
-        // SlidePosition = Math.max(SLIDE_MIN_POSITION, Math.min(SlidePosition, SLIDE_MAX_POSITION));
-
+        if(gamepad1.left_bumper){
+          slidePosition = low_basket;
+        }
+        
+        if (gamepad1.right_bumper){
+          slidePosition = high_basket;
+        }
+        
+        if (gamepad1.right_trigger){
+          slidePosition = high_rung;
+        }
+       
         // Update slide motor position if necessary
-          SlideMotor.setTargetPosition((int) slidePosition);
-          ((DcMotorEx) SlideMotor).setVelocity(2100); // Adjust velocity as needed
+        SlideMotor.setTargetPosition((int) slidePosition);
+        ((DcMotorEx) SlideMotor).setVelocity(2100); // Adjust velocity as needed
 
 
         // Tilt servo control
@@ -126,14 +132,14 @@ public class TeleOp2425M extends LinearOpMode {
 
         //Intake Servo Control
 
-        
+
         if(gamepad1.dpad_right){
           //Servo is Open
           IntakeServo.setPosition(0);
         }// end of if
         if(gamepad1.dpad_left){
           //Servo is closed
-          IntakeServo.setPosition(0.4);
+          IntakeServo.setPosition(0.5);
         }// end of if
       }
     }
