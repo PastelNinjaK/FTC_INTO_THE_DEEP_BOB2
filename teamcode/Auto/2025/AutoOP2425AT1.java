@@ -18,14 +18,18 @@ public class AutoOP2425AT1 extends LinearOpMode {
   private DcMotor SlideMotor;
   private Servo TiltServoR;
   private Servo TiltServoL;
-
-  final double low_rung = 578.7116112967108;
-  final double high_rung = 1070.7473672576434;
-  final double low_basket = 762.9220420998186;
-  final double high_basket = 1296.1627628456572;
-  final double low_chamber = 362.9915015404398;
-  final double high_chamber = 762.9220420998186;
+  private Servo IntakeServo;
+  //final double low_rung = 578.7116112967108;
+  //final double high_rung = 1070.7473672576434;
+  //final double low_basket = 762.9220420998186;
+  //final double high_basket = 1296.1627628456572;
+  // final double low_chamber = 362.9915015404398;
+  final double high_chamber = 2600;
   final double slide_off = 10;
+  double Straight = 0;
+  double Tilt = 0.35;
+  double On = 0;
+  double Off = 1;
 
 
 
@@ -60,40 +64,26 @@ public class AutoOP2425AT1 extends LinearOpMode {
     waitForStart();
 
     if (opModeIsActive()) {
-      program(1.0,1.0,1.0,1.0,1,slide_off,"Straight","On");
-      program(0,0,0,0,1,high_chamber,"Straight","On");
-      program(-1.0,-1.0,-1.0,-1.0,1,high_chamber,"Straight","Off");
-      program(1.0,-1.0,-1.0,1.0,1,slide_off,"Straight","Off");
+      program(1.0,1.0,1.0,1.0,0.5,high_chamber,Straight,On);
 
     }
   }
 
-  public void program(double LFPower, double LRPower,double RFPower, double RRPower, double delay, double slidePosition, String wristPosition, String intake) {
-    LFDrive.setPower(LFPower);
-    RFDrive.setPower(RFPower);
-    LRDrive.setPower(LRPower);
-    RRDrive.setPower(RRPower);
+  public void program(double LFPower, double LRPower,double RFPower, double RRPower, double delay, double slidePosition, double wristPosition, double intake) {
+    LFDrive.setPower(LFPower*0.5);
+    RFDrive.setPower(RFPower*0.5);
+    LRDrive.setPower(LRPower*0.5);
+    RRDrive.setPower(RRPower*0.5);;
 
 
 
     SlideMotor.setTargetPosition((int) slidePosition);
-    ((DcMotorEx) SlideMotor).setVelocity(2100);
+    ((DcMotorEx) SlideMotor).setVelocity(3000);
 
-    if (wristPosition == "Straight") {
-      TiltServoR.setPosition(0);
-      TiltServoL.setPosition(0.0195);
-    }// end of if
-    if (wristPosition == "Tilt") {
-      TiltServoR.setPosition(0.35);
-      TiltServoL.setPosition(0.3695);
-    }// end of if
 
-    if (intake == "On")
-      IntakeServo.setPosition(0.4);
-    }//end of if
-    if (intake == "Off"){
-      IntakeServo.setPosition(0);
-    }//end of if
+    TiltServoR.setPosition(wristPosition);
+    TiltServoL.setPosition(wristPosition+0.0195);
+    IntakeServo.setPosition(intake);
 
     sleep((long) (delay * 1000));
 
