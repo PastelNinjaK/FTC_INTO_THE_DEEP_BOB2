@@ -29,7 +29,7 @@ public class AutoOP2425AT1 extends LinearOpMode {
   double Straight = 0;
   double Tilt = 0.35;
   double On = 0;
-  double Off = 1;
+  double Off = 0.15;
 
 
 
@@ -44,7 +44,7 @@ public class AutoOP2425AT1 extends LinearOpMode {
     TiltServoR = hardwareMap.get(Servo.class, "right_tilt_servo");
     TiltServoL = hardwareMap.get(Servo.class, "left_tilt_servo");
     IntakeServo = hardwareMap.get(Servo.class, "intake_servo");
-    IntakeServo.setPosition(0);// to be adjusted(OPEN)
+    // IntakeServo.setPosition(0);// to be adjusted(OPEN)
     //Brake mode
     LFDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     LRDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -64,7 +64,13 @@ public class AutoOP2425AT1 extends LinearOpMode {
     waitForStart();
 
     if (opModeIsActive()) {
-      program(1.0,1.0,1.0,1.0,0.5,high_chamber,Straight,On);
+      program(0,0,0,0,1,high_chamber,Straight,On);
+      program(1,1,1,1,1,high_chamber,Straight,On);
+      program(0,0,0,0,1,high_chamber,Straight,Off);
+      program(-1,-1,-1,-1,1,slide_off,Straight,Off);
+      program(-1,1,1,-1,1,slide_off,Straight,Off);
+      
+      
 
     }
   }
@@ -78,7 +84,7 @@ public class AutoOP2425AT1 extends LinearOpMode {
 
 
     SlideMotor.setTargetPosition((int) slidePosition);
-    ((DcMotorEx) SlideMotor).setVelocity(3000);
+    ((DcMotorEx) SlideMotor).setVelocity(9000);
 
 
     TiltServoR.setPosition(wristPosition);
