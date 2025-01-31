@@ -54,8 +54,8 @@ public class TeleOp2425M1 extends LinearOpMode {
 
     if (opModeIsActive()) {
 
-          TiltServoR.setPosition(0.0); // Neutral position
-          TiltServoL.setPosition(0.025);
+        TiltServoR.setPosition(0.0); // Neutral position
+        TiltServoL.setPosition(0.025);
       while (opModeIsActive()) {
         // Drive control
         double y = gamepad1.left_stick_y;
