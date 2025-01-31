@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.CRServo;
 
 @TeleOp(name = "TeleOp2425M1")
 public class TeleOp2425M1 extends LinearOpMode {
@@ -15,8 +16,9 @@ public class TeleOp2425M1 extends LinearOpMode {
   private Servo TiltServoR;
   private Servo TiltServoL;
   private Servo IntakeServo;
-
-
+  // Slide motor limits
+  private static final int SLIDE_MIN_POSITION = 0;      // Adjust based on hardware
+  private static final int SLIDE_MAX_POSITION = 1000;  // Adjust based on hardware
 
   @Override
   public void runOpMode() {
@@ -29,7 +31,7 @@ public class TeleOp2425M1 extends LinearOpMode {
     TiltServoR = hardwareMap.get(Servo.class, "right_tilt_servo");
     TiltServoL = hardwareMap.get(Servo.class, "left_tilt_servo");
     IntakeServo = hardwareMap.get(Servo.class, "intake_servo");
-    IntakeServo.setPosition(0);
+    // IntakeServo.setPosition(0);
     // Set motor brake behavior
     LFDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     LRDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -41,16 +43,19 @@ public class TeleOp2425M1 extends LinearOpMode {
     LRDrive.setDirection(DcMotor.Direction.REVERSE);
     RFDrive.setDirection(DcMotor.Direction.REVERSE);
     TiltServoR.setDirection(Servo.Direction.REVERSE);
+    // IntakeServo.setDirection(Servo.Direction.REVERSE);
+    
 
     //Slide Encoder
 
+    // SlideMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     
     waitForStart();
 
     if (opModeIsActive()) {
-      TiltServoR.setPosition(0);
-      TiltServoL.setPosition(0.025);
 
+          TiltServoR.setPosition(0.0); // Neutral position
+          TiltServoL.setPosition(0.025);
       while (opModeIsActive()) {
         // Drive control
         double y = gamepad1.left_stick_y;
@@ -61,6 +66,7 @@ public class TeleOp2425M1 extends LinearOpMode {
         double RFPower = y + x2 + x1;
         double LRPower = y - x2 + x1;
         double RRPower = y + x2 - x1;
+        double SlidePower = gamepad1.left_trigger - gamepad1.right_trigger;
 
         LFDrive.setPower(LFPower);
         RFDrive.setPower(RFPower);
@@ -69,7 +75,7 @@ public class TeleOp2425M1 extends LinearOpMode {
 
 
 
-        SlideMotor.setPower(slidePower);
+        SlideMotor.setPower(SlidePower);
 
         // Tilt servo control
         if (gamepad1.dpad_up) {
@@ -83,13 +89,18 @@ public class TeleOp2425M1 extends LinearOpMode {
 
         //Intake Servo Control
         
-        if(gamepad1.dppad_right){
+        if(gamepad1.a){
+          TiltServoR.setPosition(-1);
+          TiltServoL.setPosition(-1.025);
+        }
+        
+        if(gamepad1.dpad_right){
           //Servo is Open
           IntakeServo.setPosition(0);
         }// end of if
         if(gamepad1.dpad_left){
           //Servo is closed
-          IntakeServo.setPosition(0.4);
+          IntakeServo.setPosition(0.15);
         }// end of if
       }
     }
