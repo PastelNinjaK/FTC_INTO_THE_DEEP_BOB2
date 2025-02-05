@@ -1,14 +1,4 @@
-Conversation opened. 1 unread message.
 
-Skip to content
-Using Calgary Catholic School District Mail with screen readers
-1 of 255
-ALL CODE
-Inbox
-
-Aleksandr Gruzdev <aleksandrg1@learn.cssd.ab.ca>
-4:18 PM (0 minutes ago)
-to me
 
 package org.firstinspires.ftc.teamcode.TeleOp;
 
