@@ -14,7 +14,7 @@ public class TeleOp2425M3 extends LinearOpMode {
   private DcMotor RFDrive;
   private DcMotor LRDrive;
   private DcMotor RRDrive;
-  private DcMotor SlideMotor;
+  private DcMotorEx SlideMotor;
   private Servo TiltServoR;
   private Servo TiltServoL;
   private Servo IntakeServo;
@@ -27,7 +27,7 @@ public class TeleOp2425M3 extends LinearOpMode {
     RFDrive = hardwareMap.get(DcMotor.class, "right_front_drive");
     LRDrive = hardwareMap.get(DcMotor.class, "left_rear_drive");
     RRDrive = hardwareMap.get(DcMotor.class, "right_rear_drive");
-    SlideMotor = hardwareMap.get(DcMotor.class, "slide_motor");
+    SlideMotor = (DcMotorEx) hardwareMap.get(DcMotor.class, "slide_motor");
     TiltServoR = hardwareMap.get(Servo.class, "right_tilt_servo");
     TiltServoL = hardwareMap.get(Servo.class, "left_tilt_servo");
     IntakeServo = hardwareMap.get(Servo.class, "intake_servo");
@@ -40,17 +40,15 @@ public class TeleOp2425M3 extends LinearOpMode {
     SlideMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
     // Reverse necessary motor directions
-    SLideMotor.setDirection(DcMotor.Direction.REVERSE)
+    SlideMotor.setDirection(DcMotor.Direction.REVERSE);
     LRDrive.setDirection(DcMotor.Direction.REVERSE);
     RFDrive.setDirection(DcMotor.Direction.REVERSE);
     TiltServoR.setDirection(Servo.Direction.REVERSE);
     // IntakeServo.setDirection(Servo.Direction.REVERSE);
-    
 
-    //Slide Encoder
-
+    // Slide Encoder
     // SlideMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    
+
     waitForStart();
 
     if (opModeIsActive()) {
@@ -74,15 +72,23 @@ public class TeleOp2425M3 extends LinearOpMode {
         LRDrive.setPower(LRPower);
         RRDrive.setPower(RRPower);
 
-        if (gamepad1.x){
-          //Hover mode
+        if (gamepad1.x) {
+          // Hover mode
           SlideMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-          SlideMotor.setTargetPosition(100);
-          ((DcMotorEx) SlideMotor).setVelocity(2100)
-        }else{
+          SlideMotor.setTargetPosition(100); // Example target position
+          ((DcMotorEx) SlideMotor).setVelocity(2100); // Use velocity for precise control
+
+          if (!SlideMotor.isBusy()) {
+            // Once the target is reached, switch back to manual control
+            SlideMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            SlideMotor.setPower(0); // Ensure the motor stops before manual control
+          }
+        } else {
           // Manual control
+          SlideMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
           SlideMotor.setPower(SlidePower);
         }
+
         // Tilt servo control
         if (gamepad1.dpad_up) {
           TiltServoR.setPosition(0.0); // Neutral position
