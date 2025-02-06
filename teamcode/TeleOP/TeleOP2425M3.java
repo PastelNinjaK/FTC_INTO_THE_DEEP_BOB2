@@ -98,18 +98,18 @@ public class TeleOP2425M3 extends LinearOpMode {
         }//end of if
         if (gamepad1.dpad_down) {
           armPosition = armHover;
-        
+
         }//end of if
         if(gamepad1.left_bumper && !armIsDown){
           //arm goes down
           armPosition = armFullTilt;
           intakePower = clawOff;
           sleep(1200);
-          
+
           //arm collects
           intakePower = clawOn;
           sleep(500);
-          
+
           //arm goes back to hover mode
           armPosition = armHover;
         }
@@ -120,7 +120,7 @@ public class TeleOP2425M3 extends LinearOpMode {
 
 
         //Intake Servo Control
- 
+
         if(gamepad1.dpad_right && !clawIsOn){
           //Servo is Open
           intakePower = clawOff;
@@ -136,7 +136,7 @@ public class TeleOP2425M3 extends LinearOpMode {
 
 
         //Hover Mode
-        
+
 
       }
     }
