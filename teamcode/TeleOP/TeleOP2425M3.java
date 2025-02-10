@@ -20,13 +20,16 @@ public class TeleOP2425M3 extends LinearOpMode {
   private Servo TiltServoR;
   private Servo TiltServoL;
   private CRServo IntakeServo;
-  private Servo RotateServo
+  private Servo RotateServo;
   private double armDown = 0.0;
-  private double armStraight = 0.2;
+  private double armStraight = 0.2;// This value needs to be modified
   private double armHover = 0.55;
   private double armFullTilt = 0.7;
   private double clawOn = 1.0;
   private double clawOff = -1.0;
+  private double rotateCounterClockwise = -1.0;
+  private double rotateClockwise = 1.0;
+  private double rotateOff = 0.0;
   private boolean armIsDown = false;
   private boolean clawIsOn = false;
   // Slide motor limits
@@ -43,6 +46,7 @@ public class TeleOP2425M3 extends LinearOpMode {
     TiltServoR = hardwareMap.get(Servo.class, "right_tilt_servo");
     TiltServoL = hardwareMap.get(Servo.class, "left_tilt_servo");
     IntakeServo = hardwareMap.get(CRServo.class, "intake_servo");//this is the claw servo
+    RotateServo = hardWareMap.gey(CRServo.class, "rotate_servo");// tgis is the rotating servo
     // Set motor brake behavior
     LFDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     LRDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -55,18 +59,17 @@ public class TeleOP2425M3 extends LinearOpMode {
     LRDrive.setDirection(DcMotor.Direction.REVERSE);
     RFDrive.setDirection(DcMotor.Direction.REVERSE);
     TiltServoR.setDirection(Servo.Direction.REVERSE);
+    //RotateServo.setDirection(CRServo.Direction.REVERSE);
 
 
-    //Slide Encoder
 
-    // SlideMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    
+
     waitForStart();
 
     if (opModeIsActive()) {
 
-        TiltServoR.setPosition(0.0); // Folded Position
-        TiltServoL.setPosition(0.025);
+      TiltServoR.setPosition(armDown); // Folded Position
+      TiltServoL.setPosition(armDown +0.025);
       while (opModeIsActive()) {
         // Drive control
         double y = gamepad1.left_stick_y;
@@ -105,11 +108,11 @@ public class TeleOP2425M3 extends LinearOpMode {
           //arm goes down
           armPosition = armFullTilt;
           intakePower = clawOff;
-          sleep(1200);
+          sleep(1200);// This needs to be adjusted
 
           //arm collects
           intakePower = clawOn;
-          sleep(500);
+          sleep(500);// this needs to be adjusted
 
           //arm goes back to hover mode
           armPosition = armHover;
@@ -136,9 +139,21 @@ public class TeleOP2425M3 extends LinearOpMode {
         IntakeServo.setPower(intakePower);
 
 
-        //Hover Mode
+        // Rotating Servo
+        double rotatePower = rotateOff;
+        // if pressing x rotates the claw clockwise and pressing b rotates b counter clockwiss
+        // go to line 62 and remove the // on that line.
+        if(gamepad1.x){
+          // claw rotates counter clockwise
+          rotatePower = rotateLeft;
+        }else if(gamepad1.b){
+          // claw rotates clockwise
+          rotatePower = rotateRight;
+        }else{
+          rotatePower = rotateOff;
+        }//end of if
 
-
+        RotateServo.setPower(rotatePower);
       }
     }
   }
