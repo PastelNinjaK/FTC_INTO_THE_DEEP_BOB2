@@ -46,7 +46,7 @@ public class TeleOP2425M3 extends LinearOpMode {
     TiltServoR = hardwareMap.get(Servo.class, "right_tilt_servo");
     TiltServoL = hardwareMap.get(Servo.class, "left_tilt_servo");
     IntakeServo = hardwareMap.get(CRServo.class, "intake_servo");//this is the claw servo
-    RotateServo = hardWareMap.gey(CRServo.class, "rotate_servo");// tgis is the rotating servo
+    RotateServo = hardWareMap.gey(CRServo.class, "rotate_servo");// this is the rotating servo
     // Set motor brake behavior
     LFDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     LRDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
