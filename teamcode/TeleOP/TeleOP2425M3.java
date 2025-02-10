@@ -20,6 +20,7 @@ public class TeleOP2425M3 extends LinearOpMode {
   private Servo TiltServoR;
   private Servo TiltServoL;
   private CRServo IntakeServo;
+  private Servo RotateServo
   private double armDown = 0.0;
   private double armStraight = 0.2;
   private double armHover = 0.55;
@@ -37,11 +38,11 @@ public class TeleOP2425M3 extends LinearOpMode {
     RFDrive = hardwareMap.get(DcMotor.class, "right_front_drive");
     LRDrive = hardwareMap.get(DcMotor.class, "left_rear_drive");
     RRDrive = hardwareMap.get(DcMotor.class, "right_rear_drive");
-    SlideMotorR = hardwareMap.get(DcMotor.class, "right_slide_motor");
-    SlideMotorL = hardwareMap.get(DcMotor.class, "left_slide_motor");
+    SlideMotorR = hardwareMap.get(DcMotor.class, "right_slide_motor");//This is the old slide motor
+    SlideMotorL = hardwareMap.get(DcMotor.class, "left_slide_motor");//This is the new slide motor
     TiltServoR = hardwareMap.get(Servo.class, "right_tilt_servo");
     TiltServoL = hardwareMap.get(Servo.class, "left_tilt_servo");
-    IntakeServo = hardwareMap.get(CRServo.class, "intake_servo");
+    IntakeServo = hardwareMap.get(CRServo.class, "intake_servo");//this is the claw servo
     // Set motor brake behavior
     LFDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     LRDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
