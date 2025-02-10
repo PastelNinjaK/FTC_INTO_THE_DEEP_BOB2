@@ -52,7 +52,9 @@ public class TeleOP2425M3 extends LinearOpMode {
     LRDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     RFDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     RRDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-    SlideMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    SlideMotorR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    SlideMotorL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
 
     // Reverse necessary motor directions
     SLideMotorL.setDirection(DcMotor.Direction.REVERSE);
