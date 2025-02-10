@@ -150,6 +150,7 @@ public class TeleOP2425M3 extends LinearOpMode {
           // claw rotates clockwise
           rotatePower = rotateRight;
         }else{
+          //claw stops rotating
           rotatePower = rotateOff;
         }//end of if
 
