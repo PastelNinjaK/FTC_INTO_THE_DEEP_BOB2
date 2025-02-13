@@ -19,19 +19,19 @@ public class TeleOP2425M3 extends LinearOpMode {
   private DcMotor SlideMotorL;
   private Servo TiltServoR;
   private Servo TiltServoL;
-  private CRServo IntakeServo;
-  private Servo RotateServo;
-  private double armDown = 0.0;
-  private double armStraight = 0.2;// This value needs to be modified
-  private double armHover = 0.55;
-  private double armFullTilt = 0.7;
-  private double clawOpen = 0.1;
+  private Servo IntakeServo;
+  private CRServo RotateServo;
+  private double armDown = 0.02;
+  private double armStraight = 0.24;// This value needs to be modified
+  private double armHover = 0.45;
+  private double armFullTilt = 0.575;
+  private double clawOpen = 0.3;
   private double clawClosed = 0;
   private double rotateCounterClockwise = -1.0;
   private double rotateClockwise = 1.0;
   private double rotateOff = 0.0;
-  private boolean armIsDown = false;
-  private boolean clawIsOn = false;
+  // private boolean armIsDown = false;
+  // private boolean clawIsOn = false;
   // Slide motor limits
 
   @Override
@@ -46,7 +46,7 @@ public class TeleOP2425M3 extends LinearOpMode {
     TiltServoR = hardwareMap.get(Servo.class, "right_tilt_servo");
     TiltServoL = hardwareMap.get(Servo.class, "left_tilt_servo");
     IntakeServo = hardwareMap.get(Servo.class, "intake_servo");//this is the claw servo
-    RotateServo = hardWareMap.gey(CRServo.class, "rotate_servo");// this is the rotating servo
+    RotateServo = hardwareMap.get(CRServo.class, "rotate_servo");// this is the rotating servo
     // Set motor brake behavior
     LFDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     LRDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -57,11 +57,10 @@ public class TeleOP2425M3 extends LinearOpMode {
 
 
     // Reverse necessary motor directions
-    SLideMotorL.setDirection(DcMotor.Direction.REVERSE);
+    SlideMotorL.setDirection(DcMotor.Direction.REVERSE);
     LRDrive.setDirection(DcMotor.Direction.REVERSE);
     RFDrive.setDirection(DcMotor.Direction.REVERSE);
     TiltServoR.setDirection(Servo.Direction.REVERSE);
-    //RotateServo.setDirection(CRServo.Direction.REVERSE);
 
 
 
@@ -71,7 +70,7 @@ public class TeleOP2425M3 extends LinearOpMode {
     if (opModeIsActive()) {
 
       TiltServoR.setPosition(armDown); // Folded Position
-      TiltServoL.setPosition(armDown +0.025);
+      TiltServoL.setPosition(armDown + 0.025);
       while (opModeIsActive()) {
         // Drive control
         double y = gamepad1.left_stick_y;
@@ -97,60 +96,67 @@ public class TeleOP2425M3 extends LinearOpMode {
 
 
         // Tilt servo control & Hover Mode
-        double intakePower = 0;
-        double armPosition = 0;
         if (gamepad1.dpad_up) {
-          armPosition = armStraight;
+          TiltServoR.setPosition(armStraight);
+          TiltServoL.setPosition(armStraight + 0.025);
         }//end of if
         if (gamepad1.dpad_down) {
-          armPosition = armHover;
-
+          TiltServoR.setPosition(armHover);
+          TiltServoL.setPosition(armHover + 0.025);
         }//end of if
-        if(gamepad1.left_bumper && !armIsDown){
-          //arm goes down
-          armPosition = armFullTilt;
-          intakePower = clawOff;
-          sleep(1200);// This needs to be adjusted
-
-          //arm collects
-          intakePower = clawOn;
-          sleep(500);// this needs to be adjusted
-
-          //arm goes back to hover mode
-          armPosition = armHover;
+        
+        
+        if(gamepad1.y){
+          TiltServoR.setPosition(armFullTilt);
+          TiltServoL.setPosition(armFullTilt + 0.025);        
         }
+        
+        
+        // // Hover mode
 
-        TiltServoR.setPosition(armPosition);
-        TiltServoL.setPosition(armPosition + 0.025);
+        // if(gamepad1.right_bumper){
+        //   //arm goes down
+        //   TiltServoR.setPosition(armFullTilt);
+        //   TiltServoL.setPosition(armFullTilt + 0.025);
+        //   IntakeServo.setPosition(clawOpen);
+        //   sleep(1200);// This needs to be adjusted
+
+        //   //arm collects
+        //   IntakeServo.setPosition(clawClosed);
+        //   sleep(500);// this needs to be adjusted
+
+        //   //arm goes back to hover mode
+        //   TiltServoR.setPosition(armHover);
+        //   TiltServoL.setPosition(armHover + 0.025);
+        //   }
+
+
 
 
 
         //Intake Servo Control
 
-        if(gamepad1.dpad_right && !clawIsOn){
+        if(gamepad1.dpad_right ){
           //Servo is Open
-          intakePower = clawOff;
-          clawIsOn = true
+          IntakeServo.setPosition(clawOpen);
         }// end of if
-        if(gamepad1.dpad_left && clawIsOn){
+        if(gamepad1.dpad_left ){
           //Servo is closed
-          intakePower = clawOn;
-          clawIsOn = false
+          IntakeServo.setPosition(clawClosed);
         }// end of if
 
-        IntakeServo.setPosition(intakePower);
 
 
-        // Rotating Servo
+        // // Rotating Servo
         double rotatePower = rotateOff;
         // if pressing x rotates the claw clockwise and pressing b rotates b counter clockwiss
         // go to line 62 and remove the // on that line.
         if(gamepad1.x){
           // claw rotates counter clockwise
-          rotatePower = rotateLeft;
+          rotatePower = rotateCounterClockwise;
         }else if(gamepad1.b){
           // claw rotates clockwise
-          rotatePower = rotateRight;
+          rotatePower = rotateClockwise;
         }else{
           //claw stops rotating
           rotatePower = rotateOff;
