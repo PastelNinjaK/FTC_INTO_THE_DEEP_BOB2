@@ -21,10 +21,10 @@ public class TeleOP2425M3 extends LinearOpMode {
   private Servo TiltServoL;
   private Servo IntakeServo;
   private CRServo RotateServo;
-  private double armDown = 0.02;
+  private double armDown = 0.025;
   private double armStraight = 0.24;// This value needs to be modified
-  private double armHover = 0.45;
-  private double armFullTilt = 0.575;
+  private double armHover = 0.475;
+  private double armFullTilt = 0.5;
   private double clawOpen = 0.3;
   private double clawClosed = 0;
   private double rotateCounterClockwise = -1.0;
