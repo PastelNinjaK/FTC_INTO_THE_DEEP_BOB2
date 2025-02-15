@@ -21,12 +21,12 @@ public class TeleOP2425M3 extends LinearOpMode {
   private Servo TiltServoL;
   private Servo IntakeServo;
   private CRServo RotateServo;
-  private double armDown = 0.025;
+  private double armDown = 0.02;
   private double armStraight = 0.24;// This value needs to be modified
-  private double armHover = 0.475;
-  private double armFullTilt = 0.5;
-  private double clawOpen = 0.3;
-  private double clawClosed = 0;
+  private double armHover = 0.55;;
+  private double armFullTilt = 0.59;
+  private double clawClosed = 0.3;
+  private double clawOpen= 0;
   private double rotateCounterClockwise = -1.0;
   private double rotateClockwise = 1.0;
   private double rotateOff = 0.0;
@@ -114,21 +114,21 @@ public class TeleOP2425M3 extends LinearOpMode {
         
         // // Hover mode
 
-        // if(gamepad1.right_bumper){
-        //   //arm goes down
-        //   TiltServoR.setPosition(armFullTilt);
-        //   TiltServoL.setPosition(armFullTilt + 0.025);
-        //   IntakeServo.setPosition(clawOpen);
-        //   sleep(1200);// This needs to be adjusted
+        if(gamepad1.right_bumper){
+          //arm goes down
+          TiltServoR.setPosition(armFullTilt);
+          TiltServoL.setPosition(armFullTilt + 0.025);
+          IntakeServo.setPosition(clawOpen);
+          sleep(500);// This needs to be adjusted
 
-        //   //arm collects
-        //   IntakeServo.setPosition(clawClosed);
-        //   sleep(500);// this needs to be adjusted
+          //arm collects
+          IntakeServo.setPosition(clawClosed);
+          sleep(500);// this needs to be adjusted
 
-        //   //arm goes back to hover mode
-        //   TiltServoR.setPosition(armHover);
-        //   TiltServoL.setPosition(armHover + 0.025);
-        //   }
+          //arm goes back to hover mode
+          TiltServoR.setPosition(armHover);
+          TiltServoL.setPosition(armHover + 0.025);
+          }
 
 
 
