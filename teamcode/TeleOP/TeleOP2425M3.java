@@ -25,6 +25,7 @@ public class TeleOP2425M3 extends LinearOpMode {
   private double armStraight = 0.24;// This value needs to be modified
   private double armHover = 0.55;;
   private double armFullTilt = 0.59;
+  private double armHang = 0.29;
   private double clawClosed = 0.3;
   private double clawOpen= 0;
   private double rotateCounterClockwise = -1.0;
@@ -105,13 +106,18 @@ public class TeleOP2425M3 extends LinearOpMode {
           TiltServoL.setPosition(armHover + 0.025);
         }//end of if
         
-        
+        if(gamepad1.a){
+          TiltServoR.setPosition(armHang);
+          TiltServoL.setPosition(armHang + 0.025);
+        }//end of if
+
+
         if(gamepad1.y){
           TiltServoR.setPosition(armFullTilt);
-          TiltServoL.setPosition(armFullTilt + 0.025);        
+          TiltServoL.setPosition(armFullTilt + 0.025);
         }
-        
-        
+
+
         // // Hover mode
 
         if(gamepad1.right_bumper){
@@ -128,7 +134,7 @@ public class TeleOP2425M3 extends LinearOpMode {
           //arm goes back to hover mode
           TiltServoR.setPosition(armHover);
           TiltServoL.setPosition(armHover + 0.025);
-          }
+        }
 
 
 
